@@ -7,88 +7,83 @@
     <ContentPage.Content>
         <ScrollView
             BindingContext="{Binding Login}">
-        <StackLayout
+            <StackLayout
             Padding="5">
-            
-            <Label Text="Login"               
-                HorizontalOptions="Center"
-                FontAttributes="Bold"
-                FontSize="Large">
-            </Label>
-            <Image
+
+                <Image
                 WidthRequest="200"
-                Source="onu.png">                
-            </Image>
+                Source="onu.png">
+                </Image>
 
- 
-            <Grid
-                
-                Margin="10,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="2*"/>
-                </Grid.ColumnDefinitions>
 
-                <Label
+                <Grid
+                    Margin="10,0"
+                    VerticalOptions="CenterAndExpand">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label
                     Grid.Row="0"
                     Grid.Column="0"
-                    Text="Email">
-                </Label>
-                <Entry
+                    Text="Email"
+                    VerticalOptions="Center">
+                    </Label>
+                    <Entry
                     Grid.Row="0"
                     Grid.Column="1"
                     Keyboard="Email"
                     Text="{Binding Email, Mode=TwoWay}"
                     Placeholder="Enter your email..."></Entry>
 
-                <Label
+                    <Label
                     Grid.Row="1"
                     Grid.Column="0"
-                    Text="Password">
-                </Label>
-                <Entry
+                    Text="Password"
+                    VerticalOptions="Center">
+                    </Label>
+                    <Entry
                      Grid.Row="1"
                      Grid.Column="1"
                      IsPassword="True"
                      Text="{Binding Password, Mode=TwoWay}"
-                     Placeholder="Enter your password...">                    
-                </Entry>
-            </Grid>
+                     Placeholder="Enter your password...">
+                    </Entry>
+                </Grid>
 
-            <StackLayout
+                <ActivityIndicator
+                IsRunning="{Binding IsRunning, Mode=TwoWay}"
+                VerticalOptions="CenterAndExpand">
+                </ActivityIndicator>
+
+                <StackLayout
                Margin="10,0"
                Orientation="Horizontal"
                VerticalOptions="CenterAndExpand">
-                <Label
+                    <Label
                     HorizontalOptions="StartAndExpand"
                     VerticalOptions="Center"
-                    Text="Remember in this device">                    
-                </Label>
-                <Switch
+                    Text="Remember in this device">
+                    </Label>
+                    <Switch
                     IsToggled="{Binding IsRemembered, Mode=TwoWay}"
-                    HorizontalOptions="End">                    
-                </Switch>
-            </StackLayout>
-           
-            
-            <ActivityIndicator
-                IsRunning="{Binding IsRunning, Mode=TwoWay}"
-                VerticalOptions="CenterAndExpand">                
-            </ActivityIndicator>
+                    HorizontalOptions="End">
+                    </Switch>
+                </StackLayout>
 
-             
-                    
-            <Label
+                <Label
                 Text="Forgot your password?"
                 TextColor="Blue"
+                HorizontalOptions="Center"
                 VerticalOptions="CenterAndExpand">
-            </Label>
-                           
-            <StackLayout
+                </Label>
+
+                <StackLayout
                 Margin="40,0"
                 Orientation="Horizontal"
                 VerticalOptions="CenterAndExpand">
-                <Button
+                    <Button
                     BackgroundColor="Navy"
                     BorderRadius="23"
                     Command="{Binding LoginCommand}"
@@ -97,9 +92,9 @@
                     IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
                     Text="Login"
                     TextColor="White">
-                </Button>
+                    </Button>
 
-                <Button
+                    <Button
                     BackgroundColor="Purple"
                     BorderRadius="23"
                     Command="{Binding RegisterCommand}"
@@ -108,27 +103,27 @@
                     IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
                     Text="Register"
                     TextColor="White">
-                </Button>
-            </StackLayout>
-            
+                    </Button>
+                </StackLayout>
+
                 <StackLayout
                 HorizontalOptions="Center"
                 Orientation="Horizontal">
-                <Image 
+                    <Image 
                     Source="facebook.png"
-                    WidthRequest="100">                    
-                </Image>
-                <Image 
+                    WidthRequest="100">
+                    </Image>
+                    <Image 
                     Source="twitter.png"
                      WidthRequest="65">
-                </Image>
-                <Image 
+                    </Image>
+                    <Image 
                     Source="instagram.png"
                      WidthRequest="70">
-                </Image>
-            </StackLayout>           
+                    </Image>
+                </StackLayout>
 
-        </StackLayout>
+            </StackLayout>
         </ScrollView>
     </ContentPage.Content>
 </ContentPage>
