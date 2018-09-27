@@ -108,10 +108,14 @@
 
                 <StackLayout
                 HorizontalOptions="Center"
-                Orientation="Horizontal">
+                Orientation="Horizontal"
+                    VerticalOptions="EndAndExpand">
                     <Image 
                     Source="facebook.png"
                     WidthRequest="100">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding LoginFacebookComand}"/>
+                        </Image.GestureRecognizers>
                     </Image>
                     <Image 
                     Source="twitter.png"

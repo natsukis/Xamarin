@@ -132,8 +132,7 @@ namespace XamarinApp.ViewModel
         {
             this.IsRemembered = true;
             this.IsEnabled = true;
-
-            //http://restcountries.eu/rest/v2/all
+            
         }
         #endregion
     }
