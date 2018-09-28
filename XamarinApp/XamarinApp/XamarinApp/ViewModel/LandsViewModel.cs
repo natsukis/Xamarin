@@ -11,8 +11,8 @@ using XamarinApp.Services;
 
 namespace XamarinApp.ViewModel
 {
-   public class LandsViewModel :BaseViewModel
-   {
+    public class LandsViewModel : BaseViewModel
+    {
         #region Services
         private ApiService apiService;
         #endregion
@@ -21,7 +21,7 @@ namespace XamarinApp.ViewModel
         private ObservableCollection<LandItemViewModel> lands;
         private bool isRefreshing;
         private string filter;
-        private List<Land> landsList;
+     
         #endregion
 
         #region Properties
@@ -82,7 +82,7 @@ namespace XamarinApp.ViewModel
                 this.IsRefreshing = false;
                 await Application.Current.MainPage.DisplayAlert(
                     "Error",
-                    connection.Message, 
+                    connection.Message,
                     "Accept");
                 await Application.Current.MainPage.Navigation.PopAsync();
                 return;
@@ -96,12 +96,12 @@ namespace XamarinApp.ViewModel
             if (!response.IsSuccess)
             {
                 this.IsRefreshing = false;
-                await Application.Current.MainPage.DisplayAlert("Error",response.Message,"Accept");
+                await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Accept");
                 await Application.Current.MainPage.Navigation.PopAsync();
                 return;
             }
 
-            this.landsList = (List<Land>)response.Result;
+            MainViewModel.GetInstance().LandsList = (List<Land>)response.Result;
             this.Lands = new ObservableCollection<LandItemViewModel>(
                 this.ToLandItemViewModel());
             this.IsRefreshing = false;
@@ -117,7 +117,8 @@ namespace XamarinApp.ViewModel
             }
         }
 
-        public ICommand SearchCommand {
+        public ICommand SearchCommand
+        {
             get
             {
                 return new RelayCommand(Search);
@@ -138,40 +139,40 @@ namespace XamarinApp.ViewModel
                              l.Capital.ToLower().Contains(this.Filter.ToLower())));
             }
         }
-    #endregion
+        #endregion
 
-    #region Methods
-    private IEnumerable<LandItemViewModel> ToLandItemViewModel()
-    {
-        return this.landsList.Select(l => new LandItemViewModel
+        #region Methods
+        private IEnumerable<LandItemViewModel> ToLandItemViewModel()
         {
-            Alpha2Code = l.Alpha2Code,
-            Alpha3Code = l.Alpha3Code,
-            AltSpellings = l.AltSpellings,
-            Area = l.Area,
-            Borders = l.Borders,
-            CallingCodes = l.CallingCodes,
-            Capital = l.Capital,
-            Cioc = l.Cioc,
-            Currencies = l.Currencies,
-            Demonym = l.Demonym,
-            Flag = l.Flag,
-            Gini = l.Gini,
-            Languages = l.Languages,
-            Latlng = l.Latlng,
-            Name = l.Name,
-            NativeName = l.NativeName,
-            NumericCode = l.NumericCode,
-            Population = l.Population,
-            Region = l.Region,
-            RegionalBlocs = l.RegionalBlocs,
-            Subregion = l.Subregion,
-            Timezones = l.Timezones,
-            TopLevelDomain = l.TopLevelDomain,
-            Translations = l.Translations,
-        });
-    }
-    #endregion
+            return MainViewModel.GetInstance().LandsList.Select(l => new LandItemViewModel
+            {
+                Alpha2Code = l.Alpha2Code,
+                Alpha3Code = l.Alpha3Code,
+                AltSpellings = l.AltSpellings,
+                Area = l.Area,
+                Borders = l.Borders,
+                CallingCodes = l.CallingCodes,
+                Capital = l.Capital,
+                Cioc = l.Cioc,
+                Currencies = l.Currencies,
+                Demonym = l.Demonym,
+                Flag = l.Flag,
+                Gini = l.Gini,
+                Languages = l.Languages,
+                Latlng = l.Latlng,
+                Name = l.Name,
+                NativeName = l.NativeName,
+                NumericCode = l.NumericCode,
+                Population = l.Population,
+                Region = l.Region,
+                RegionalBlocs = l.RegionalBlocs,
+                Subregion = l.Subregion,
+                Timezones = l.Timezones,
+                TopLevelDomain = l.TopLevelDomain,
+                Translations = l.Translations,
+            });
+        }
+        #endregion
 
 
     }

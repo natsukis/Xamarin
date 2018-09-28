@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using XamarinApp.Models;
 
 namespace XamarinApp.ViewModel
 {
     public class MainViewModel
     {
+        #region Properties
+        public List<Land> LandsList { get; set; }
+        #endregion
+
         #region ViewModels
         public LoginViewModel Login { get; set; }
 
