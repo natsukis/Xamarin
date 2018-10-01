@@ -5,12 +5,16 @@ using System.ComponentModel;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
+using XamarinApp.Services;
 using XamarinApp.Views;
 
 namespace XamarinApp.ViewModel
 {
     public class LoginViewModel : BaseViewModel
     {
+        #region Services
+        private ApiService apiService;
+        #endregion
 
         #region Attributes
         private string email;
@@ -104,17 +108,54 @@ namespace XamarinApp.ViewModel
             this.IsRunning = true;
             this.IsEnabled = false;
 
-            if (this.Email != "benja@gmail.com" || this.Password != "1234")
+            var connection = await this.apiService.CheckConnection();
+
+            if (!connection.IsSuccess)
             {
                 this.IsRunning = false;
                 this.IsEnabled = true;
+
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "Email or password incorrect.",
-                    "Accept");
+                  "Error",
+                  connection.Message,
+                  "Accept");
+                return;
+            }
+
+            var token = await this.apiService.GetToken(
+                "http://10.21.101.197:45457/", 
+                this.Email,
+                this.Password);
+
+            if (token == null)
+            {
+                this.IsRunning = false;
+                this.IsEnabled = true;
+
+                await Application.Current.MainPage.DisplayAlert(
+                  "Error",
+                  "Something was wrong",
+                  "Accept");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(token.AccessToken))
+            {
+                this.IsRunning = false;
+                this.IsEnabled = true;
+
+                await Application.Current.MainPage.DisplayAlert(
+                  "Error",
+                  token.ErrorDescription,
+                  "Accept");
                 this.Password = string.Empty;
                 return;
             }
+
+            var mainViewModel = MainViewModel.GetInstance();
+            mainViewModel.Token = token;
+            mainViewModel.Lands = new LandsViewModel();
+            await Application.Current.MainPage.Navigation.PushAsync(new LandsPage());
 
             this.IsRunning = false;
             this.IsEnabled = true;
@@ -130,6 +171,7 @@ namespace XamarinApp.ViewModel
         #region Constructors
         public LoginViewModel()
         {
+            this.apiService = new ApiService();
             this.IsRemembered = true;
             this.IsEnabled = true;
             
