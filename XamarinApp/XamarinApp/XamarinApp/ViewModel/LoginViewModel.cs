@@ -123,7 +123,7 @@ namespace XamarinApp.ViewModel
             }
 
             var token = await this.apiService.GetToken(
-                "http://10.21.101.197:45457/", 
+                "http://10.21.101.198:45455/", 
                 this.Email,
                 this.Password);
 
