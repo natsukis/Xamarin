@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace XamarinApp.Domain
 {
-    public class Class1
+   public class Response
     {
+        public bool IsSuccess { get; set; }
+        public string Message { get; set; }
+        public object Result { get; set; }
     }
 }
