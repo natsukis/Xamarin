@@ -12,6 +12,7 @@ using XamarinApp.Domain;
 
 namespace XamarinApp.Backend.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
         private LocalDataContext db = new LocalDataContext();

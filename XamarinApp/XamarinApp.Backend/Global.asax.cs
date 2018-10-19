@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using XamarinApp.Backend.Helpers;
 
 namespace XamarinApp.Backend
 {
@@ -12,10 +13,18 @@ namespace XamarinApp.Backend
     {
         protected void Application_Start()
         {
+            this.CheckRolesAndSuperUser();
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+        }
+
+        private void CheckRolesAndSuperUser()
+        {
+            UsersHelper.CheckRole("Admin");
+            UsersHelper.CheckRole("User");
+            UsersHelper.CheckSuperUser();
         }
     }
 }
