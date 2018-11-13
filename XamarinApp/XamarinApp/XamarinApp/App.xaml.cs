@@ -5,6 +5,8 @@ using System.Text;
 
 using Xamarin.Forms;
 using XamarinApp.Views;
+using XamarinApp.Helpers;
+using XamarinApp.ViewModel;
 
 namespace XamarinApp
 {
@@ -20,7 +22,20 @@ namespace XamarinApp
 		{
 			InitializeComponent();
 
-            MainPage = new NavigationPage(new Login());
+            if (string.IsNullOrEmpty(Settings.Token))
+            {
+                MainPage = new NavigationPage(new Login());
+            }
+            else
+            {
+                var mainViewModel = MainViewModel.GetInstance();
+                mainViewModel.Token = Settings.Token;
+                mainViewModel.TokenType = Settings.TokenType;
+                mainViewModel.Lands = new LandsViewModel();
+                Application.Current.MainPage = new MasterPage();
+            }
+           
+
         }
         #endregion
 

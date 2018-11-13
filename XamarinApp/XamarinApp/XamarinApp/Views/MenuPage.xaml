@@ -4,6 +4,7 @@
              x:Class="XamarinApp.Views.MenuPage"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
              BackgroundColor="Navy"
+             Icon="ic_menu"
              Title="Menu">
     <ContentPage.Content>
         <StackLayout

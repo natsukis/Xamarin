@@ -123,8 +123,9 @@ namespace XamarinApp.ViewModel
                 return;
             }
 
+            var apiSecurity = Application.Current.Resources["APISecurity"].ToString();
             var token = await this.apiService.GetToken(
-                "http://10.21.101.198:45455/", 
+                apiSecurity, 
                 this.Email,
                 this.Password);
 
@@ -154,7 +155,15 @@ namespace XamarinApp.ViewModel
             }
 
             var mainViewModel = MainViewModel.GetInstance();
-            mainViewModel.Token = token;
+            mainViewModel.Token = token.AccessToken;
+            mainViewModel.TokenType = token.TokenType;
+
+            if (this.IsRemembered)
+            {
+                Settings.Token = token.AccessToken;
+                Settings.TokenType = token.TokenType;
+            }
+                       
             mainViewModel.Lands = new LandsViewModel();
 
             Application.Current.MainPage = new MasterPage();
@@ -166,6 +175,22 @@ namespace XamarinApp.ViewModel
             this.Password = string.Empty;
 
         }
+
+        public ICommand RegisterCommand
+        {
+            get
+            {
+                return new RelayCommand(Register);
+            }
+        }
+
+        public async void Register()
+        {
+            MainViewModel.GetInstance().Register = new RegisterViewModel();
+            await Application.Current.MainPage.Navigation.PushAsync(new RegisterPage());
+        }
+
+
         #endregion
 
         #region Constructors

@@ -12,7 +12,8 @@ namespace XamarinApp.ViewModel
       
         #region Properties
         public List<Land> LandsList { get; set; }
-        public TokenResponse Token { get; set; }
+        public String Token { get; set; }
+        public String TokenType { get; set; }
         public ObservableCollection<MenuItemViewModel> Menus
         {
             get;
@@ -27,6 +28,8 @@ namespace XamarinApp.ViewModel
         public LandsViewModel Lands { get; set; }
 
         public LandViewModel Land { get; set; }
+
+        public RegisterViewModel Register { get; set; }
         #endregion
 
         #region Constructors

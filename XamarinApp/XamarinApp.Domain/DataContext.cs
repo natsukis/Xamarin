@@ -13,5 +13,9 @@ namespace XamarinApp.Domain
         {
 
         }
+
+        public System.Data.Entity.DbSet<XamarinApp.Domain.User> Users { get; set; }
+
+        public System.Data.Entity.DbSet<XamarinApp.Domain.UserType> UserTypes { get; set; }
     }
 }

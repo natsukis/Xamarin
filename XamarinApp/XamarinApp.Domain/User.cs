@@ -34,6 +34,17 @@ namespace XamarinApp.Domain
         [DataType(DataType.PhoneNumber)]
         public string Telephone { get; set; }
 
+        public int UserTypeId { get; set; }
+
+        [JsonIgnore]
+        public virtual UserType UserType { get; set; }
+
+        [NotMapped]
+        public byte[] ImageArray { get; set; }
+
+        [NotMapped]
+        public string Password { get; set; }
+
         [Display(Name = "Image")]
         public string ImagePath { get; set; }
 
@@ -48,7 +59,7 @@ namespace XamarinApp.Domain
                 }
 
                 return string.Format(
-                    "http://10.21.101.198:45455/{0}",
+                    "http://192.168.1.107:45455/{0}",
                     ImagePath.Substring(1));
             }
         }
