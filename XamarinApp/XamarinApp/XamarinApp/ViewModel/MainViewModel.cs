@@ -4,6 +4,7 @@ using System.Text;
 using XamarinApp.Models;
 using XamarinApp.Helpers;
 using System.Collections.ObjectModel;
+using XamarinApp.Domain;
 
 namespace XamarinApp.ViewModel
 {
@@ -19,6 +20,8 @@ namespace XamarinApp.ViewModel
             get;
             set;
         }
+
+        public User User { get; set; }
 
         #endregion
 
