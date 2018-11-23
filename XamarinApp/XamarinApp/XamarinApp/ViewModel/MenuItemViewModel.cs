@@ -29,6 +29,8 @@ namespace XamarinApp.ViewModel
 
         private void Navigate()
         {
+            App.Master.IsPresented = false;
+
             if(this.PageName == "Login")
             {
                 Settings.Token = string.Empty;
@@ -37,6 +39,11 @@ namespace XamarinApp.ViewModel
                 mainViewModel.Token = string.Empty;
                 mainViewModel.TokenType = string.Empty;
                 Application.Current.MainPage = new NavigationPage(new Login());
+            }
+            else if (this.PageName == "MyProfilePage")
+            {
+                MainViewModel.GetInstance().MyProfile = new MyProfileViewModel();
+                App.Navigator.PushAsync(new MyProfilePage());
             }
         }
         #endregion

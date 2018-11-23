@@ -7,6 +7,8 @@ using Xamarin.Forms;
 using XamarinApp.Views;
 using XamarinApp.Helpers;
 using XamarinApp.ViewModel;
+using XamarinApp.Services;
+using XamarinApp.Models;
 
 namespace XamarinApp
 {
@@ -15,6 +17,7 @@ namespace XamarinApp
 
         #region Properties
         public static NavigationPage Navigator { get; internal set; }
+        public static MasterPage Master { get; internal set; }
         #endregion
 
         #region Constructor
@@ -28,9 +31,12 @@ namespace XamarinApp
             }
             else
             {
+                var dataService = new DataService();
+                var user = dataService.First<UserLocal>(false);
                 var mainViewModel = MainViewModel.GetInstance();
                 mainViewModel.Token = Settings.Token;
                 mainViewModel.TokenType = Settings.TokenType;
+                mainViewModel.User = user;
                 mainViewModel.Lands = new LandsViewModel();
                 Application.Current.MainPage = new MasterPage();
             }
