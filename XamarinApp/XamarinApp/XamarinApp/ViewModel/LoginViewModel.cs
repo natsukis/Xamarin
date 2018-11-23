@@ -126,7 +126,7 @@ namespace XamarinApp.ViewModel
 
             var apiSecurity = Application.Current.Resources["APISecurity"].ToString();
             var token = await this.apiService.GetToken(
-                apiSecurity, 
+                apiSecurity,
                 this.Email,
                 this.Password);
 
@@ -137,7 +137,7 @@ namespace XamarinApp.ViewModel
 
                 await Application.Current.MainPage.DisplayAlert(
                   Languages.Error,
-                  "Something was wrong",
+                  Languages.SomethingWrong,
                   Languages.Accept);
                 return;
             }
@@ -148,8 +148,8 @@ namespace XamarinApp.ViewModel
                 this.IsEnabled = true;
 
                 await Application.Current.MainPage.DisplayAlert(
-                   Languages.Error,
-                  token.ErrorDescription,
+                  Languages.Error,
+                  Languages.LoginError,
                   Languages.Accept);
                 this.Password = string.Empty;
                 return;
@@ -165,19 +165,24 @@ namespace XamarinApp.ViewModel
               );
 
             var userLocal = Converter.ToUserLocal(user);
+            userLocal.Password = this.Password;
 
             var mainViewModel = MainViewModel.GetInstance();
-            mainViewModel.Token = token.AccessToken;
-            mainViewModel.TokenType = token.TokenType;
+            mainViewModel.Token = token;
             mainViewModel.User = userLocal;
 
             if (this.IsRemembered)
             {
-                Settings.Token = token.AccessToken;
-                Settings.TokenType = token.TokenType;
-                this.dataService.DeleteAllAndInsert(userLocal);
+                Settings.IsRemembered = "true";
             }
-                       
+            else
+            {
+                Settings.IsRemembered = "false";
+            }
+
+            this.dataService.DeleteAllAndInsert(userLocal);
+            this.dataService.DeleteAllAndInsert(token);
+
             mainViewModel.Lands = new LandsViewModel();
 
             Application.Current.MainPage = new MasterPage();
@@ -214,7 +219,7 @@ namespace XamarinApp.ViewModel
             this.dataService = new DataService();
             this.IsRemembered = true;
             this.IsEnabled = true;
-            
+
         }
         #endregion
     }

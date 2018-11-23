@@ -9,6 +9,7 @@ using Xamarin.Forms;
 using XamarinApp.Helpers;
 using XamarinApp.Models;
 using XamarinApp.Services;
+using XamarinApp.Views;
 
 namespace XamarinApp.ViewModel
 {
@@ -203,8 +204,8 @@ namespace XamarinApp.ViewModel
                 apiSecurity,
                 "/api",
                 "/Users",
-                MainViewModel.GetInstance().TokenType,
-                MainViewModel.GetInstance().Token,
+                MainViewModel.GetInstance().Token.TokenType,
+                MainViewModel.GetInstance().Token.AccessToken,
                 userDomain);
 
             if (!response.IsSuccess)
@@ -222,8 +223,8 @@ namespace XamarinApp.ViewModel
               apiSecurity,
               "/api",
               "/Users/GetUserByEmail",
-              MainViewModel.GetInstance().TokenType,
-              MainViewModel.GetInstance().Token,
+                MainViewModel.GetInstance().Token.TokenType,
+                MainViewModel.GetInstance().Token.AccessToken,
               this.User.Email
               );
 
@@ -234,10 +235,23 @@ namespace XamarinApp.ViewModel
 
             this.IsRunning = false;
             this.IsEnabled = true;
-
+             
             await App.Navigator.PopAsync();
         }
 
+        public ICommand ChangePasswordCommand
+        {
+            get
+            {
+                return new RelayCommand(ChangePassword);
+            }
+        }
+
+        private async void ChangePassword()
+        {
+            MainViewModel.GetInstance().ChangePassword = new ChangePasswordViewModel();
+            await App.Navigator.PushAsync(new ChangePasswordPage());
+        }
 
         #endregion
     }

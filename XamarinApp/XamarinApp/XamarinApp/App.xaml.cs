@@ -25,20 +25,29 @@ namespace XamarinApp
 		{
 			InitializeComponent();
 
-            if (string.IsNullOrEmpty(Settings.Token))
+            if (Settings.IsRemembered == "true")
             {
-                MainPage = new NavigationPage(new Login());
+                var dataService = new DataService();
+                var token = dataService.First<TokenResponse>(false);
+
+                if (token != null && token.Expires > DateTime.Now)
+                {
+                    var user = dataService.First<UserLocal>(false);
+                    var mainViewModel = MainViewModel.GetInstance();
+                    mainViewModel.Token = token;
+                    mainViewModel.User = user;
+                    mainViewModel.Lands = new LandsViewModel();
+                    Application.Current.MainPage = new MasterPage();
+                }
+                else
+                {
+                    MainPage = new NavigationPage(new Login());
+                }
+                             
             }
             else
             {
-                var dataService = new DataService();
-                var user = dataService.First<UserLocal>(false);
-                var mainViewModel = MainViewModel.GetInstance();
-                mainViewModel.Token = Settings.Token;
-                mainViewModel.TokenType = Settings.TokenType;
-                mainViewModel.User = user;
-                mainViewModel.Lands = new LandsViewModel();
-                Application.Current.MainPage = new MasterPage();
+                MainPage = new NavigationPage(new Login());
             }
            
 
