@@ -28,6 +28,7 @@ namespace XamarinApp.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("GetUserByEmail")]
         public async Task<IHttpActionResult> GetUserByEmail(JObject form)
         {
@@ -53,17 +54,24 @@ namespace XamarinApp.API.Controllers
         }
 
         // PUT: api/Users/5
+        [Authorize]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutUser(int id, User user)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
 
-            if (id != user.UserId)
+            if (user.ImageArray != null && user.ImageArray.Length > 0)
             {
-                return BadRequest();
+                var stream = new MemoryStream(user.ImageArray);
+                var guid = Guid.NewGuid().ToString();
+                var file = string.Format("{0}.jpg", guid);
+                var folder = "~/Content/Images";
+                var fullPath = string.Format("{0}/{1}", folder, file);
+                var response = FilesHelper.UploadPhoto(stream, folder, file);
+
+                if (response)
+                {
+                    user.ImagePath = fullPath;
+                }
             }
 
             db.Entry(user).State = EntityState.Modified;
@@ -84,7 +92,7 @@ namespace XamarinApp.API.Controllers
                 }
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return Ok(user);
         }
 
         // POST: api/Users

@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace XamarinApp.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class MyProfile : ContentPage
+	public partial class MyProfilePage : ContentPage
 	{
-		public MyProfile ()
+		public MyProfilePage ()
 		{
 			InitializeComponent ();
 		}

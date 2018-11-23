@@ -8,9 +8,12 @@ using XamarinApp.Domain;
 
 namespace XamarinApp.ViewModel
 {
-    public class MainViewModel
+    public class MainViewModel : BaseViewModel
     {
-      
+        #region Attributes
+        private UserLocal user;
+        #endregion
+
         #region Properties
         public List<Land> LandsList { get; set; }
         public String Token { get; set; }
@@ -21,7 +24,16 @@ namespace XamarinApp.ViewModel
             set;
         }
 
-        public UserLocal User { get; set; }
+        public UserLocal User {
+            get
+            {
+                return this.user;
+            }
+            set
+            {
+                SetValue(ref this.user, value);
+            }
+        }
 
         public MyProfileViewModel MyProfile { get; set; }
 

@@ -159,6 +159,8 @@ namespace XamarinApp.ViewModel
               apiSecurity,
               "/api",
               "/Users/GetUserByEmail",
+              token.TokenType,
+              token.AccessToken,
               this.Email
               );
 

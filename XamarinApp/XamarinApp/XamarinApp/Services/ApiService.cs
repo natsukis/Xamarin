@@ -348,6 +348,8 @@ namespace XamarinApp.Services
           string urlBase,
           string servicePrefix,
           string controller,
+          string tokenType,
+          string accessToken,
           string email)
         {
             try
@@ -363,6 +365,8 @@ namespace XamarinApp.Services
                     Encoding.UTF8,
                     "application/json");
                 var client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization =
+                   new AuthenticationHeaderValue(tokenType, accessToken);
                 client.BaseAddress = new Uri(urlBase);
                 var url = string.Format("{0}{1}", servicePrefix, controller);
                 var response = await client.PostAsync(url, content);
@@ -374,7 +378,7 @@ namespace XamarinApp.Services
 
                 var result = await response.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<User>(result);
-                            
+
             }
             catch (Exception ex)
             {
