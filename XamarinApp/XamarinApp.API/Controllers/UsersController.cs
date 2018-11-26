@@ -84,11 +84,12 @@ namespace XamarinApp.API.Controllers
             }
             catch
             {
-
                 return BadRequest("Missing parameter.");
             }
 
-            var user = await db.Users.Where(u => u.Email.ToLower() == email.ToLower()).FirstOrDefaultAsync();
+            var user = await db.Users.
+                Where(u => u.Email.ToLower() == email.ToLower()).
+                FirstOrDefaultAsync();
             if (user == null)
             {
                 return NotFound();

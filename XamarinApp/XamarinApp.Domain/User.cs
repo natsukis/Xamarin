@@ -59,7 +59,7 @@ namespace XamarinApp.Domain
                 }
 
                 return string.Format(
-                    "http://192.168.1.105:45455/{0}",
+                    "http://192.168.1.105:45488/{0}",
                     ImagePath.Substring(1));
             }
         }

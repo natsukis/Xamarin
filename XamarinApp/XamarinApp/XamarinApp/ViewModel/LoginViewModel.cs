@@ -103,7 +103,7 @@ namespace XamarinApp.ViewModel
             {
                 await Application.Current.MainPage.DisplayAlert(
                     Languages.Error,
-                    "You must enter a password.",
+                     Languages.PasswordValidation,
                     Languages.Accept);
                 return;
             }

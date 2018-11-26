@@ -12,7 +12,7 @@
 
             <!-- Parameters -->
             <x:String x:Key="APILands">http://restcountries.eu</x:String>
-            <x:String x:Key="APISecurity">http://192.168.1.105:45455</x:String>
+            <x:String x:Key="APISecurity">http://192.168.1.105:45488</x:String>
         </ResourceDictionary>
 
 	</Application.Resources>

@@ -8,7 +8,7 @@ using XamarinApp.Domain;
 
 namespace XamarinApp.API.Helpers
 {
-    public class UsersHelper
+    public class UsersHelper : IDisposable
     {
         private static ApplicationDbContext userContext = new ApplicationDbContext();
         private static DataContext db = new DataContext();

@@ -7,7 +7,7 @@ using XamarinApp.Backend.Models;
 
 namespace XamarinApp.Backend.Helpers
 {
-    public class UsersHelper
+    public class UsersHelper : IDisposable
     {
         private static ApplicationDbContext userContext = new ApplicationDbContext();
         private static LocalDataContext db = new LocalDataContext();

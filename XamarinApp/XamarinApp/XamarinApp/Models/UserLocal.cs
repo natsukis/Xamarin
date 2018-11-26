@@ -40,7 +40,7 @@ namespace XamarinApp.Models
                     var apiSecurity = Application.Current.Resources["APISecurity"].ToString();
                     apiSecurity += "/{0}";
                     return string.Format(
-                        apiSecurity ,
+                        apiSecurity,
                         ImagePath.Substring(1));
                 }
 
