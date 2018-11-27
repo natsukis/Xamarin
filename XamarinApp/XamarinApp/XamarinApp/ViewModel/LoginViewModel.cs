@@ -209,7 +209,18 @@ namespace XamarinApp.ViewModel
             await Application.Current.MainPage.Navigation.PushAsync(new RegisterPage());
         }
 
+        public ICommand LoginFacebookComand
+        {
+            get
+            {
+                return new RelayCommand(LoginFacebook);
+            }
+        }
 
+        public async void LoginFacebook()
+        {
+            await Application.Current.MainPage.Navigation.PushAsync(new LoginFacebookPage());
+        }
         #endregion
 
         #region Constructors
